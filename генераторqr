@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+       <title> Генератор QR-кодов для вашего сайта</title> 
+       <style>
+        *{
+            margin: 0;
+            font-family: sans-serif;
+        }
+        section {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 50px;
+            margin-bottom: 40px;
+        }
+        body {
+            padding: 40px 0;
+        }
+        .description {
+            margin-bottom: 40px;
+        }
+        .form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        input [type= "url"] {
+            font-size: 32px;
+            width: 70%;
+        }
+        button {
+            font-size: 28px;
+            cursor: pointer;
+        }
+        hr {
+            margin-bottom: 40px;
+        }
+        .qrcode-container {
+            display: flex;
+            justify-content: center;
+        }
+        #qrcode {
+            width: 512px;
+            height: 512px;
+        }
+      
+
+
+       </style>
+       <script type="text/javascript" src="qrcode.min.js"></script>
+       <script>
+       document.addEventListener ('DOMContentLoaded', function () {
+        
+       let qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 512,
+	height : 512
+});
+
+let makeCode= function () {		
+	let url = document.querySelector('[name="url"]');
+	
+	if (url=='') {
+		alert("Введите адрес ресурса");
+		url.focus();
+		return;
+	}
+	
+	qrcode.makeCode(url.value);
+}
+           document.querySelector('button').addEventListener ('click', function () {
+           makeCode  ();
+});
+
+       });
+       </script>
+    </head>
+    <body>
+        <section>
+            <h1>Генератор QR-кодов для вашего сайта</h1>
+            <p class="description"> В поле ниже вставьте адрес Вашего сайта и&nbsp;нажмите кнопку сгеннерировать. Появится QR-код. Вы&nbsp;можете его скопировать нажав на&nbsp;правую кнопку мыши.</p>
+        </section>
+        <section class="form">
+            <input type="url" name="url" placeholder="https://happy-motherhood.ru/">
+            <button> Сгенерировать </button>
+        </section>
+        <section>
+            <hr>
+        </section>
+        <section class="qrcode-container">
+            <div id="qrcode"></div>
+        </section>
+    </body>
+</html>
